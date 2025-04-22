@@ -1,0 +1,27 @@
+name: HealthCore
+version: '0.5-beta'
+main: net.missid.healthCore.HealthCore
+api-version: '1.21'
+authors: [ MiMISSID ]
+website: https://github.com/MISSmyID
+
+commands:
+  revive:
+    aliases:
+      - r
+      - rev
+    description: revives player
+    permission: op
+    permission-message: You do not have permission to use this command.
+
+  setRevivePosition:
+    aliases:
+      - srp
+      - s
+    description: setts spawn location of revived players
+    permission: op
+  permissions:
+    revive:
+      default: op
+    setRevivePosition:
+      default: op
