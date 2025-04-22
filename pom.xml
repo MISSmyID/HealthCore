@@ -6,7 +6,7 @@
 
     <groupId>net.missid</groupId>
     <artifactId>HealthCore</artifactId>
-    <version>0.5-beta</version>
+    <version>0.7-beta</version>
     <packaging>jar</packaging>
 
     <name>HealthCore</name>

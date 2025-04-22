@@ -20,5 +20,4 @@ public final class HealthCore extends JavaPlugin {
     public void onDisable() {
         Config.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
     }
-
 }
