@@ -2,7 +2,7 @@ package net.missid.healthCore.Commands;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.missid.healthCore.Generics.Config;
+import net.missid.healthCore.IO.Storage;
 import net.missid.healthCore.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -37,7 +37,7 @@ public class SetRevivePosCommand implements CommandExecutor {
             }else {
                 Player player = Bukkit.getPlayer(sender.getName());
                 Main.revivePoint = player.getLocation();
-                Config.getInstance().SetReviveLocation("revivelocation",Main.revivePoint);
+                Storage.getInstance().SetReviveLocation("revivelocation",Main.revivePoint);
                 Message = MiniMessage.miniMessage().deserialize("<b><color:#40ff00>Position successfully set!</color></b>");
                 sender.sendMessage(Message);
             }

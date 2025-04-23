@@ -2,7 +2,7 @@ package net.missid.healthCore;
 
 import net.missid.healthCore.Commands.ReviveCommand;
 import net.missid.healthCore.Commands.SetRevivePosCommand;
-import net.missid.healthCore.Generics.Config;
+import net.missid.healthCore.IO.Storage;
 import net.missid.healthCore.Listeners.PlayerListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,11 +13,12 @@ public final class HealthCore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(),this);
         getCommand("revive").setExecutor(new ReviveCommand());
         getCommand("setRevivePosition").setExecutor(new SetRevivePosCommand());
-        Config.getInstance().load();
+        Storage.getInstance().load();
     }
 
     @Override
     public void onDisable() {
-        Config.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
+        Storage.getInstance().setFrozenList("frozenlist",Main.frozenPlayers);
+        Storage.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
     }
 }

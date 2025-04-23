@@ -1,5 +1,5 @@
 name: HealthCore
-version: '0.7-beta'
+version: '0.7-A-beta'
 main: net.missid.healthCore.HealthCore
 api-version: '1.21'
 authors: [ MiMISSID ]

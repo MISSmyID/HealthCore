@@ -1,4 +1,4 @@
-package net.missid.healthCore.Generics;
+package net.missid.healthCore.IO;
 
 import net.missid.healthCore.HealthCore;
 import net.missid.healthCore.Main;
@@ -7,23 +7,20 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-public class Config {
+public class Storage {
 private File file;
 private YamlConfiguration config;
-    private Config(){
+    private Storage(){
     }
-    private final static Config instance = new Config();
-    public static Config getInstance(){
+    private final static Storage instance = new Storage();
+    public static Storage getInstance(){
         return instance;
     }
     public void load(){
-        file = new File(HealthCore.getInstance().getDataFolder(), "config.yml");
-        if(!file.exists()) HealthCore.getInstance().saveResource("config.yml", false);
+        file = new File(HealthCore.getInstance().getDataFolder(), "storage.yml");
+        if(!file.exists()) HealthCore.getInstance().saveResource("storage.yml", false);
         config = new YamlConfiguration();
         config.options().parseComments(true);
         try{
@@ -31,19 +28,23 @@ private YamlConfiguration config;
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        Main.JoinedPlayers = GetPlayerData("playersdata.");
         Main.revivePoint = GetReviveLocation("revivelocation");
+        Main.JoinedPlayers = GetPlayerData("playersdata.");
+        Main.frozenPlayers = getFrozenList("frozenlist");
     }
 
-
-    public void set(String path, Object value){
-        config.set(path,value);
-        save();
+    public void setFrozenList(String path,List<UUID> frozenList){
+        config.set(path,frozenList);
+    }
+    public List<UUID> getFrozenList(String path){
+        List<String> list = config.getStringList(path);
+        List<UUID>result = new ArrayList<>();
+        for(String id :list){
+            result.add(UUID.fromString(id));
+        }
+        return result;
     }
 
-    public String getKey(String path){
-        return config.getString(path);
-    }
     public void SetReviveLocation(String path,Location location){
         config.set(path,location);
         save();

@@ -1,14 +1,17 @@
 package net.missid.healthCore;
-
+import net.missid.healthCore.IO.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-
 import java.util.*;
 
 public class Main {
     public static Map<UUID,Double> JoinedPlayers = new HashMap<>();
     public static Location revivePoint;
     public static List<UUID> frozenPlayers = new ArrayList<>();
+    private static final int defaultHeartsLevel = Config.getInstance().getDefaultHeartsLevel();
+    private static final double scale = Config.getInstance().getScale(); ;
+
+
 
     public static void SetPlayerData(Player player){
         UUID PlayerUUID = player.getUniqueId();
@@ -28,8 +31,6 @@ public class Main {
         }
     }
     public static void XPHealthScale(Player player, Integer playerXpLevel){
-        int defaultHeartsLevel = 6;
-        double scale = 5d;
         double heartsAmount = Math.floor(playerXpLevel/scale);
         if(playerXpLevel<10){
             player.setHealthScale(defaultHeartsLevel);

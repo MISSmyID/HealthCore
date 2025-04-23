@@ -1,6 +1,6 @@
 package net.missid.healthCore.Listeners;
 
-import net.missid.healthCore.Generics.Config;
+import net.missid.healthCore.IO.Storage;
 import net.missid.healthCore.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +19,7 @@ public class PlayerListener implements Listener {
         if(!Main.JoinedPlayers.containsKey(player.getUniqueId())){
             player.setHealthScale(6);
             Main.SetPlayerData(player);
-            Config.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
+            Storage.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
         }else{
             Main.JoinedPlayers.forEach((Key,value) -> {
                 if (Objects.equals(Key,player.getUniqueId())) {
@@ -54,7 +54,7 @@ public class PlayerListener implements Listener {
     private void onLeave(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Main.SetPlayerData(player);
-        Config.getInstance().UpdatePlayersData("playersdata",player,Main.JoinedPlayers);
+        Storage.getInstance().UpdatePlayersData("playersdata",player,Main.JoinedPlayers);
     }
 
    /* @EventHandler(priority = EventPriority.NORMAL)
