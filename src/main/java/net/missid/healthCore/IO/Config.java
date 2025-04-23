@@ -2,15 +2,12 @@ package net.missid.healthCore.IO;
 
 import net.missid.healthCore.HealthCore;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
 
 public class Config {
     private File file;
     private YamlConfiguration config;
-    private int defaultHeartsLevel;
-    private double scale;
     private Config(){}
     private static final Config instance = new Config();
     public static Config getInstance(){
@@ -26,14 +23,12 @@ public class Config {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        defaultHeartsLevel = config.getInt("default_hearts_level");
-        scale = config.getDouble("scale");
     }
     public Integer getDefaultHeartsLevel(){
-        return defaultHeartsLevel;
+        return config.getInt("default_hearts_level");
     }
     public Double getScale(){
-        return scale;
+        return config.getDouble("scale");
     }
     public void save(){
         try{

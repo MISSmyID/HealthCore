@@ -8,11 +8,6 @@ public class Main {
     public static Map<UUID,Double> JoinedPlayers = new HashMap<>();
     public static Location revivePoint;
     public static List<UUID> frozenPlayers = new ArrayList<>();
-    private static final int defaultHeartsLevel = Config.getInstance().getDefaultHeartsLevel();
-    private static final double scale = Config.getInstance().getScale(); ;
-
-
-
     public static void SetPlayerData(Player player){
         UUID PlayerUUID = player.getUniqueId();
         Double healthScale = player.getHealthScale();
@@ -30,18 +25,21 @@ public class Main {
                 entry.setValue(healthScale);}
         }
     }
-    public static void XPHealthScale(Player player, Integer playerXpLevel){
-        double heartsAmount = Math.floor(playerXpLevel/scale);
-        if(playerXpLevel<10){
+    public static void XPHealthScale(Player player, Integer playerXpLevel) {
+        int defaultHeartsLevel = Config.getInstance().getDefaultHeartsLevel();
+        double scale = Config.getInstance().getScale();
+        double heartsAmount;
+        if(playerXpLevel<270){
+            heartsAmount = Math.floor(playerXpLevel / scale);
+        }else{
+            heartsAmount = 54;
+        }
+        if (playerXpLevel < 10) {
             player.setHealthScale(defaultHeartsLevel);
             PlayerLevelChanged(player);
-        }else{
-            if(player.getHealthScale()<60){
-                player.setHealthScale(defaultHeartsLevel + heartsAmount);
-                PlayerLevelChanged(player);
-            } else if (player.getHealthScale()>60) {
-                player.setHealthScale(60);
-            }
+        } else {
+            player.setHealthScale(defaultHeartsLevel + heartsAmount);
+            PlayerLevelChanged(player);
         }
     }
 }

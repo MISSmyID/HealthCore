@@ -34,7 +34,12 @@ private YamlConfiguration config;
     }
 
     public void setFrozenList(String path,List<UUID> frozenList){
-        config.set(path,frozenList);
+        List<String> temp = new ArrayList<>();
+        for(UUID id :frozenList){
+            temp.add(id.toString());
+        }
+        config.set(path,temp);
+        save();
     }
     public List<UUID> getFrozenList(String path){
         List<String> list = config.getStringList(path);

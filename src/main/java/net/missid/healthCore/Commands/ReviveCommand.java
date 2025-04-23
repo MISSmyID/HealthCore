@@ -2,7 +2,6 @@ package net.missid.healthCore.Commands;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.missid.healthCore.Listeners.PlayerListener;
 import net.missid.healthCore.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -30,7 +29,7 @@ public class ReviveCommand implements TabExecutor {
                     player.teleport(Main.revivePoint);
                     message = MiniMessage.miniMessage().deserialize("<i><green>Player revived</green></i>");
                     sender.sendMessage(message);
-                    PlayerListener.freeze = false;
+                    Main.frozenPlayers.remove(player.getUniqueId());
                 }else{
                     message = MiniMessage.miniMessage().deserialize("<b><red>Player is alive</red></b>");
                     sender.sendMessage(message);

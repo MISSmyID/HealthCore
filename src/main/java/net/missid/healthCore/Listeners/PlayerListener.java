@@ -12,7 +12,6 @@ import org.bukkit.event.player.*;
 import java.util.Objects;
 
 public class PlayerListener implements Listener {
-    public static Boolean freeze = false;
     @EventHandler(priority = EventPriority.HIGH)
     private void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
@@ -37,7 +36,7 @@ public class PlayerListener implements Listener {
     }
     @EventHandler
     private void onMoves(PlayerMoveEvent event) {
-        if(freeze){
+        if(Main.frozenPlayers.contains(event.getPlayer().getUniqueId())){
             if (event.getFrom().getX() == event.getTo().getX() &&
                 event.getFrom().getY() == event.getTo().getY() &&
                 event.getFrom().getZ() == event.getTo().getZ())
@@ -48,7 +47,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     private void onDeath(PlayerDeathEvent event){
-        freeze = true;
+        Main.frozenPlayers.add(event.getPlayer().getUniqueId());
+
     }
     @EventHandler
     private void onLeave(PlayerQuitEvent event){
