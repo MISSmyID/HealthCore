@@ -12,15 +12,16 @@ import org.bukkit.event.player.*;
 import java.util.Objects;
 
 public class PlayerListener implements Listener {
+    Main main = new Main();
     @EventHandler(priority = EventPriority.HIGH)
     private void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
-        if(!Main.JoinedPlayers.containsKey(player.getUniqueId())){
-            player.setHealthScale(6);
+        if(!Main.enteredPlayers.containsKey(player.getUniqueId())){
+            main.setPlayerHealth(player,6);
             Main.SetPlayerData(player);
-            Storage.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
+            Storage.getInstance().SetPlayersData("playersdata",Main.enteredPlayers);
         }else{
-            Main.JoinedPlayers.forEach((Key,value) -> {
+            Main.enteredPlayers.forEach((Key, value) -> {
                 if (Objects.equals(Key,player.getUniqueId())) {
                     player.setHealthScale(value);
                 }
@@ -31,7 +32,7 @@ public class PlayerListener implements Listener {
     private void onPlayerLevelChanged(PlayerLevelChangeEvent event){
         Player player = event.getPlayer();
         int playerXpLevel = player.getLevel();
-        Main.XPHealthScale(player,playerXpLevel);
+        main.XPHealthScale(player,playerXpLevel);
 
     }
     @EventHandler
@@ -54,13 +55,6 @@ public class PlayerListener implements Listener {
     private void onLeave(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Main.SetPlayerData(player);
-        Storage.getInstance().UpdatePlayersData("playersdata",player,Main.JoinedPlayers);
+        Storage.getInstance().UpdatePlayersData("playersdata",player,Main.enteredPlayers);
     }
-
-   /* @EventHandler(priority = EventPriority.NORMAL)
-    private void onPlayerXpChanged(PlayerExpChangeEvent event){
-        Player player = event.getPlayer();
-        int playerXpLevel = player.getLevel();
-        Main.XPHealthScale(player,playerXpLevel);
-    }*/
 }

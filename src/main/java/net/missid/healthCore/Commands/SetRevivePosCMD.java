@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class SetRevivePosCommand implements CommandExecutor {
+public class SetRevivePosCMD implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Component Message;
@@ -23,8 +23,8 @@ public class SetRevivePosCommand implements CommandExecutor {
         }else{
             if(args.length == 1){
                 if(args[0].equals("get")){
-                    if(Main.revivePoint!=null){
-                        Map<String,Object> locationToSend = Main.revivePoint.serialize();
+                    if(Main.reviveLocation !=null){
+                        Map<String,Object> locationToSend = Main.reviveLocation.serialize();
                         for(Map.Entry<String,Object> entry: locationToSend.entrySet()){
                             sender.sendMessage(entry.getKey() + ":" +entry.getValue());
                         }
@@ -36,8 +36,8 @@ public class SetRevivePosCommand implements CommandExecutor {
                 }
             }else {
                 Player player = Bukkit.getPlayer(sender.getName());
-                Main.revivePoint = player.getLocation();
-                Storage.getInstance().SetReviveLocation("revivelocation",Main.revivePoint);
+                Main.reviveLocation = player.getLocation();
+                Storage.getInstance().SetReviveLocation("revivelocation",Main.reviveLocation);
                 Message = MiniMessage.miniMessage().deserialize("<b><color:#40ff00>Position successfully set!</color></b>");
                 sender.sendMessage(Message);
             }

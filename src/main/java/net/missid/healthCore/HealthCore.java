@@ -1,7 +1,8 @@
 package net.missid.healthCore;
 
-import net.missid.healthCore.Commands.ReviveCommand;
-import net.missid.healthCore.Commands.SetRevivePosCommand;
+import net.missid.healthCore.Commands.PurchaseCMD;
+import net.missid.healthCore.Commands.ReviveCMD;
+import net.missid.healthCore.Commands.SetRevivePosCMD;
 import net.missid.healthCore.IO.Config;
 import net.missid.healthCore.IO.Storage;
 import net.missid.healthCore.Listeners.PlayerListener;
@@ -12,15 +13,17 @@ public final class HealthCore extends JavaPlugin {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new PlayerListener(),this);
-        getCommand("revive").setExecutor(new ReviveCommand());
-        getCommand("setRevivePosition").setExecutor(new SetRevivePosCommand());
+        getCommand("revive").setExecutor(new ReviveCMD());
+        getCommand("setRevivePosition").setExecutor(new SetRevivePosCMD());
+        getCommand("purchase").setExecutor(new PurchaseCMD());
         Storage.getInstance().load();
         Config.getInstance().load();
     }
 
     @Override
     public void onDisable() {
-        Storage.getInstance().setFrozenList("frozenlist",Main.frozenPlayers);
-        Storage.getInstance().SetPlayersData("playersdata",Main.JoinedPlayers);
+        Storage.getInstance().SetFrozenList("frozenlist",Main.frozenPlayers);
+        Storage.getInstance().SetPlayersData("playersdata",Main.enteredPlayers);
+        Storage.getInstance().SetPurchasedHearts("purchasedhearts",Main.purchasedHeartsMap);
     }
 }

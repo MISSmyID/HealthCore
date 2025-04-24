@@ -20,6 +20,11 @@ commands:
       - s
     description: setts spawn location of revived players
     permission: op
+  purchase:
+    aliases:
+      - pur
+
+
   permissions:
     revive:
       default: op

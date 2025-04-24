@@ -7,8 +7,9 @@ import java.io.File;
 
 public class Config {
     private File file;
-    private YamlConfiguration config;
-    private Config(){}
+    private static YamlConfiguration config;
+    private Config(){
+    }
     private static final Config instance = new Config();
     public static Config getInstance(){
         return instance;
@@ -24,10 +25,10 @@ public class Config {
             ex.printStackTrace();
         }
     }
-    public Integer getDefaultHeartsLevel(){
+    public static Integer getDefaultHeartsLevel(){
         return config.getInt("default_hearts_level");
     }
-    public Double getScale(){
+    public static Double getScale(){
         return config.getDouble("scale");
     }
     public void save(){
